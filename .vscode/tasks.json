@@ -75,11 +75,10 @@
                     "OBJS=*.cpp"
                 ]
             },
+            "group": "build",
             "problemMatcher": [
                 "$gcc"
-            ],
-            "group": "build",
-            "detail": "compiler: C:\\raylib\\mingw\\bin\\g++.exe"
+            ]
         }
     ]
 }
