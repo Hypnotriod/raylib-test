@@ -23,7 +23,7 @@ Vector2 orbitalposition(Texture2D *texture, float angle, float distanceDelta, Ve
     return p;
 }
 
-void init(void)
+void init()
 {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
     SetTargetFPS(FPS_MAX);
@@ -80,7 +80,7 @@ void loop()
     }
 }
 
-int main(void)
+int main()
 {
     init();
     loop();
