@@ -18,8 +18,8 @@ Texture2D txrKitty;
 Vector2 orbitalposition(Texture2D *texture, float angle, float distanceDelta, Vector2 *mousePosition)
 {
     Vector2 p;
-    p.x = sin(angle) * texture->width / 2 * distanceDelta + mousePosition->x - texture->width / 2;
-    p.y = cos(angle) * texture->width / 2 * distanceDelta / 2 + mousePosition->y - texture->height / 2;
+    p.x = cos(angle) * texture->width / 2 * distanceDelta + mousePosition->x - texture->width / 2;
+    p.y = sin(angle) * texture->width / 2 * distanceDelta / 2 + mousePosition->y - texture->height / 2;
     return p;
 }
 
@@ -44,9 +44,9 @@ void loop()
 
     while (!WindowShouldClose())
     {
-        angle -= (PI * 0.5f) * GetFrameTime();
-        if (angle < PI * 2.f)
-            angle += PI * 2.f;
+        angle += (PI * 0.5f) * GetFrameTime();
+        if (angle > PI * 2.f)
+            angle -= PI * 2.f;
 
         distanceDelta += GetMouseWheelMove() * 0.1f;
 
