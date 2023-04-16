@@ -28,6 +28,7 @@ void init(void)
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
     SetTargetFPS(FPS_MAX);
     SetExitKey(KEY_NULL);
+    HideCursor();
 
     txrSuperhero = LoadTexture("resources/superhero.png");
     txrKitty = LoadTexture("resources/kitty.png");
@@ -39,8 +40,8 @@ void loop()
     Vector2 superheroPosition;
     Vector2 kittyPosition;
     float angle = 0;
-    float distanceDelta = 1.f;
-    float heightDelta = 1.f;
+    float distanceDelta = 4.f;
+    float scaleDelta = 1.f;
 
     while (!WindowShouldClose())
     {
@@ -58,26 +59,22 @@ void loop()
 
         superheroPosition = orbitalposition(&txrSuperhero, angle, distanceDelta, &mousePosition);
         kittyPosition = orbitalposition(&txrKitty, angle + PI, distanceDelta, &mousePosition);
-        heightDelta = (superheroPosition.y - kittyPosition.y) * 0.001f;
+        scaleDelta = (superheroPosition.y - kittyPosition.y) * 0.001f;
 
         if (superheroPosition.y < kittyPosition.y)
         {
-            DrawLineEx(mousePosition, Vector2{x : kittyPosition.x + txrKitty.width / 2, y : kittyPosition.y + txrKitty.height / 2}, 2, BLACK);
-            DrawTextureEx(txrSuperhero, superheroPosition, 0, 1 + heightDelta, WHITE);
-            DrawLineEx(mousePosition, Vector2{x : superheroPosition.x + txrSuperhero.width / 2, y : superheroPosition.y + txrSuperhero.height / 2}, 2, BLACK);
-            DrawTextureEx(txrKitty, kittyPosition, 0, 1 - heightDelta, WHITE);
+            DrawTextureEx(txrSuperhero, superheroPosition, 0, 1 + scaleDelta, WHITE);
+            DrawCircle(mousePosition.x, mousePosition.y, SCREEN_HEIGHT_QUATER, RED);
+            DrawText("Ninja", mousePosition.x - 30, mousePosition.y - 15, 30, WHITE);
+            DrawTextureEx(txrKitty, kittyPosition, 0, 1 - scaleDelta, WHITE);
         }
         else
         {
-            DrawLineEx(mousePosition, Vector2{x : superheroPosition.x + txrSuperhero.width / 2, y : superheroPosition.y + txrSuperhero.height / 2}, 2, BLACK);
-            DrawTextureEx(txrKitty, kittyPosition, 0, 1 - heightDelta, WHITE);
-            DrawLineEx(mousePosition, Vector2{x : kittyPosition.x + txrKitty.width / 2, y : kittyPosition.y + txrKitty.height / 2}, 2, BLACK);
-            DrawTextureEx(txrSuperhero, superheroPosition, 0, 1 + heightDelta, WHITE);
+            DrawTextureEx(txrKitty, kittyPosition, 0, 1 - scaleDelta, WHITE);
+            DrawCircle(mousePosition.x, mousePosition.y, SCREEN_HEIGHT_QUATER, RED);
+            DrawText("Ninja", mousePosition.x - 30, mousePosition.y - 15, 30, WHITE);
+            DrawTextureEx(txrSuperhero, superheroPosition, 0, 1 + scaleDelta, WHITE);
         }
-
-        // DrawCircle(mousePosition.x, mousePosition.y, SCREEN_HEIGHT_QUATER, RED);
-
-        // DrawText("Hello World", mousePosition.x - 55, mousePosition.y - 10, 20, WHITE);
 
         EndDrawing();
     }
